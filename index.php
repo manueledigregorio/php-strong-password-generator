@@ -1,6 +1,7 @@
 <?php
 $msg = '';
 $method = $_SERVER['REQUEST_METHOD'];
+include './functions.php';
 
 if ($method === "POST") {
   $password = $_POST['password_length'];
@@ -15,19 +16,12 @@ if ($method === "POST") {
     $generated_password = generateRandomPassword($integer);
   }
   
+}else{
+  header("Location ./index.php");
 }
 
 
-function generateRandomPassword($integer){
-  $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  $randPass = '';
 
-  for ($i=0; $i < $integer; $i++){ 
-    $randomIndex = mt_rand(0 ,strlen($characters) -1);
-    $randPass .= $characters[$randomIndex];
-  }
-  return $randPass;
-}
 
 ?>
 <!DOCTYPE html>
@@ -48,7 +42,7 @@ function generateRandomPassword($integer){
         <form action="index.php" method="POST">
           <input type="number"  name="password_length" id="password_length">
           <button type="submit" class="btn btn-primary">Invia</button>
-          <button type="button" class="btn btn-secondary">Annulla</button>
+          <a type="reset" href="index.php" class="btn btn-secondary">Annulla</a>
         </form>
         <p><?php echo $msg?></p>
         <h4><?php
